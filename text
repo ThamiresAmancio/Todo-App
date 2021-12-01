@@ -1,0 +1,64 @@
+const ToggleSwitch = ({
+  checked,
+  label,
+  id,
+  disabled,
+  ariaInvalid,
+  ariaLabelledby,
+  onChange,
+}) => {
+  return (
+    <>
+      <label htmlFor={id} className="ToggleSwitch ToggleSwitch_label">
+        {label}
+        <span className="ToggleSwitch_switch">
+          <input
+            type="checkbox"
+            checked={checked}
+            id={id}
+            className="ToggleSwitch_checkbox"
+            disabled={disabled}
+            onChange={onChange}
+            aria-invalid={ariaInvalid}
+            aria-labelledby={ariaLabelledby}
+          />
+          <span className="ToggleSwitch_slider" />
+        </span>
+      </label>
+    </>
+  );
+};
+
+const App = () => {
+  
+  
+  const [selected1, setSelected1] = React.useState(localStorage.getItem('toggle-switch-1') === 'true');
+  const [selected2, setSelected2] = React.useState(localStorage.getItem('toggle-switch-2') === 'true');
+  
+  
+  
+  return (
+    <div className="App">
+      <ToggleSwitch checked={selected1}
+        id='toggle-switch-1'
+        label='This is ToggleSwitch #1'
+        onChange={
+          (e) => {
+            localStorage.setItem('toggle-switch-1',`${e.target.checked}`);
+            setSelected1(e.target.checked);
+            console.log(e.target.checked)
+          }
+        } />
+      <ToggleSwitch checked={selected2}
+        id='toggle-switch-2'
+        label='This is ToggleSwitch #2'
+        onChange={
+          (e) => {
+            localStorage.setItem('toggle-switch-2',`${e.target.checked}`);
+            setSelected2(e.target.checked);
+            console.log(e.target.checked)
+          }
+        } />      
+    </div>
+  )
+}

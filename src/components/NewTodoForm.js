@@ -3,35 +3,34 @@ import { Fragment, useState } from 'react/cjs/react.development';
 
 import uuid from 'react-uuid'
 import './newboxform.css'
-import { IconAdd } from './style';
+import { Forms, IconAdd } from './style';
 
 
-function NewBoxForm ({onSubmit}) {
+function NewBoxForm({ onSubmit }) {
 
-    const [tarefa,setTarefa] = useState('');
+    const [tarefa, setTarefa] = useState('');
 
-    function handleChange (event) {
+    function handleChange(event) {
         setTarefa(event.target.value);
     }
 
     const handleSubmit = e => {
         e.preventDefault();
         onSubmit({
-          id: uuid(),
-          text: tarefa
+            id: uuid(),
+            text: tarefa
         });
         setTarefa('');
-      };
+    };
 
-    return(
+    return (
         <Fragment>
-        
-        <form onSubmit={handleSubmit}>
-            <div className="forms">
-                <input  id="tarefa" type="text"  value={tarefa} onChange={handleChange}/>
-                <IconAdd onClick={handleSubmit}/>
-            </div>
-        </form>
+            <form onSubmit={handleSubmit}>
+                <Forms>
+                    <input id="tarefa" type="text" value={tarefa} onChange={handleChange} />
+                    <IconAdd onClick={handleSubmit} />
+                </Forms>
+            </form>
         </Fragment>
     )
 }

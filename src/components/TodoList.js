@@ -1,77 +1,78 @@
 import { useState } from 'react';
 import NewBoxForm from './NewTodoForm';
+import { Container, Titutlo } from './style';
 import Todo from './Todo'
 
 
-function TodoList () {
+function TodoList() {
 
-
-    const getLocalTask =  () => {
+    const getLocalTask = () => {
         let task = localStorage.getItem('TAREFAS');
-   
-        if(task){
-            return JSON.parse(localStorage.getItem('TAREFAS')) 
-        }else{
-            return[]
+
+        if (task) {
+            return JSON.parse(localStorage.getItem('TAREFAS'))
+        } else {
+            return []
         }
     }
 
+
     const [itens, setItens] = useState(getLocalTask());
-    
-    localStorage.setItem('TAREFAS',JSON.stringify(itens))
 
-   
+    localStorage.setItem('TAREFAS', JSON.stringify(itens))
 
-    function itensTaks(tarefa){
+ 
+    function itensTaks(tarefa) {
         if (!tarefa.text || /^\s*$/.test(tarefa.text)) {
             return;
         }
         setItens([tarefa, ...itens])
     }
 
-    
+
     const updateTodo = (taskId, newValue) => {
         const editar = itens.map(item => {
-            if(item.id === taskId){
-               const editTasks = {
-                   id : taskId,
-                  text: newValue
-               }
-               return editTasks
+            if (item.id === taskId) {
+                const editTasks = {
+                    id: taskId,
+                    text: newValue
+                }
+                return editTasks
             }
             return item
         })
         setItens(editar);
     };
 
-    
-    function removeTodo (id) {
+
+    function removeTodo(id) {
         const newList = itens.filter(item => item.id !== id)
         setItens(newList)
     }
 
-    function check (id) {
+    
+    function check(id) {
         const updateTodos = itens.map(tarefa => {
-            if(tarefa.id === id){
+            if (tarefa.id === id) {
                 tarefa.complete = !tarefa.complete
+            
             }
             return tarefa
         })
-        
         setItens(updateTodos)
     }
 
-    return(
+
+    return (
         <>
-        <div className="titulo">
-            <h1>To do list</h1>
-            <NewBoxForm onSubmit={itensTaks} itens={itens}/> 
-        </div>
-        
-        <div className="container">
-            
-            <Todo tasks={itens} removeTodo={removeTodo} updateTodo={updateTodo} check={check} />
-        </div>
+            <Titutlo>
+                <h1>To do list</h1>
+                <NewBoxForm onSubmit={itensTaks} itens={itens} />
+            </Titutlo>
+
+            <Container>
+                <Todo tasks={itens} removeTodo={removeTodo} updateTodo={updateTodo} check={check} />
+            </Container>
         </>
     );
 }

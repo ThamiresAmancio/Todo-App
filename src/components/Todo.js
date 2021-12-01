@@ -21,17 +21,24 @@ function Todo ({tasks, removeTodo, updateTodo, check}) {
     };
 
     
-  
+    
     return(
            <>
                 {
                 tasks.map((task) => {
  
                     return <div className="tasks" key={task.id}>
-                    {edit.id === task.id ? <Input edit={edit} onSubmit={submitUpdate}/> : <p className={` p ${task.complete ?  'risckText'  : '' }`}>{task.text}</p> } 
+
+                    {edit.id === task.id ? <Input edit={edit} onSubmit={submitUpdate}/> : <p className={` p ${task.complete ?  'risckText'  : '' }`}>{task.text}</p> }
+
+                    {task.complete === true ? '' : <IconEdit onClick={ () => setEdit({ id: task.id, title: task.text })}/> }
+                    
                     <IconRemove onClick={() => removeTodo(task.id)}/>
-                    <IconEdit onClick={ () => setEdit({ id: task.id, title: task.text })}/>
-                    <input  className="checkbox" type="checkbox" onClick={() => check(task.id)}/>
+                    
+                    <input type="checkbox" 
+                        checked={task.complete === true ? 'checked' : ''} 
+                        className="checkbox"
+                        onClick={() => check(task.id)} />
                 </div> 
                 })
             }   

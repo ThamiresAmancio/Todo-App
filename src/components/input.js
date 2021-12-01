@@ -1,27 +1,27 @@
 import { useState } from 'react/cjs/react.development';
 import './newboxform.css'
-import { IconSave } from './style';
+import { FormsEdit, IconSave } from './style';
 
 
-function Input ({onSubmit,edit}) {
-    const [input,setInput] = useState(edit.title);
+function Input({ onSubmit, edit }) {
+    const [input, setInput] = useState(edit.title);
 
-    function handleChange (event) {
+    function handleChange(event) {
         const task = event.target.value
         setInput(task);
     }
 
-    return(
+    return (
 
         <form>
-            <div className="forms-edit">
-            <input value={input}  onChange={handleChange} id="tarefa" type="text" placeholder="Edite uma tarefa..."/>
-            <IconSave onClick={()=>{
-                onSubmit(input)
-            }} />
-            </div>
+            <FormsEdit>
+                <input value={input} onChange={handleChange} id="tarefa" type="text" placeholder="Edite uma tarefa..." />
+                <IconSave onClick={() => {
+                    onSubmit(input)
+                }} />
+            </FormsEdit>
         </form>
-        
+
     )
 }
 
